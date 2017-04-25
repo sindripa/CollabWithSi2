@@ -5,12 +5,12 @@ namespace Mini\Model;
 
 use Mini\Core\Model;
 
-class UserEdit extends Model
+class Login extends Model
 {
     public function addUser($nafn, $pass, $email)
     {
         $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO notandi(nafn, adgangsord, netfang)  VALUES (:nafn, :pass, :email )";
+        $sql = 'INSERT INTO Usor(U_name, U_password, U_email)  VALUES (:nafn, :pass, :email )';
         $query = $this->db->prepare($sql);
         $parameters = array(':pass' => $hashedPass, ':nafn' => $nafn, ':email' => $email);
         $query->execute($parameters);
@@ -18,7 +18,7 @@ class UserEdit extends Model
     public function authenticate($nafn, $passi)
     {
         if (isset($nafn)&&isset($passi)) {
-            $sql = "select U_id, U_name, U_password FROM Usor where U_name = :name LIMIT 1";
+            $sql = "select U_id, U_name, U_password, U_admin FROM Usor where U_name = :name LIMIT 1";
             $query = $this->db->prepare($sql);
             $parameters = array(':name' => $nafn);
             $query->execute($parameters);
@@ -28,8 +28,8 @@ class UserEdit extends Model
                     if(session_status() == PHP_SESSION_NONE) session_start();
                     $_SESSION['authenticatedID'] = $user->U_id;
                     $_SESSION['username'] = $user->U_name;
-                    //$_SESSION['start'] = time(); er ekki að fíla timelimit
-                    $_SESSION['adminBool'] = $user->admin;
+                    $_SESSION['adminBool'] = $user->U_admin;
+                    return true;
                 }
             }
         }

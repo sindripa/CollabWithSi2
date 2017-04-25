@@ -1,7 +1,7 @@
 <div class="container">
     <h1>Skráning</h1>
     
-    <form action="<?php echo URL;?>Home/signup" method="post">
+    <form action="<?php echo URL;?>Home" method="post">
         <label for="username">Username:</label>
         <input id="username" name="username" type="text"><br><br>
                             

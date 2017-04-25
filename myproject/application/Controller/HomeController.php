@@ -11,14 +11,16 @@
 
 namespace Mini\Controller;
 
+use Mini\Model\Login;
+
 class HomeController
 {
 
     public function index()
     {
-        $LoginModel = new NoneGag();
+        $LoginModel = new Login();
         $error = [];
-        if (isset($_POST["nyskra"])) {
+        if (isset($_POST["innskra"])) {
             
             if(!empty($_POST['username']) && !empty($_POST['password'])){       
                 /* Veit ekki alveg með þetta
@@ -27,11 +29,11 @@ class HomeController
                 $_SESSION['username'] = $_POST['username'];*/
                 
                 if ($LoginModel->authenticate($_POST['username'],$_POST['password'])) {
-                    header('location:'. URL.'admin/index' );
+                    header('location:'. URL.'Home/youIn' );
                 }
                 else {
                         // þarf að útfæra betur
-                        $error = "Wront password or username";
+                        array_push($error, "Wront password or username");
                 }
 
             } else {
@@ -42,19 +44,26 @@ class HomeController
         }
         if (isset($_POST["create"])) {
             if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["email"]) && !empty($_POST["confpass"])) {
-                if ($_POST["password"]==$_POST["confpass"]) {//did he do right?
-                    # code...
+                if ($_POST["password"]!=$_POST["confpass"]) {//did he do right?
+                    array_push($error,"pls conferm password");
                 }
-                else{array_push($error,"pls conferm password")}
+                $LoginModel->addUser($_POST["username"], $_POST["password"], $_POST["email"]);
+                echo "user added";
             }
         }
 
             // load views
-            require APP . 'view/_templates/header.php';
-            print_r($error);
+            if (!empty($error)) {
+                print_r($error);
+            }
             require APP . 'view/home/sign_up.php';
             require APP . 'view/home/login.php';
-            require APP . 'view/_templates/footer.php';
         
+    }
+
+    public function youIn()
+    {
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        print_r($_SESSION);
     }
 }
