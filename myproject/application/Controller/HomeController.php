@@ -13,41 +13,48 @@ namespace Mini\Controller;
 
 class HomeController
 {
-    /**
-     * PAGE: index
-     * This method handles what happens when you move to http://yourproject/home/index (which is the default page btw)
-     */
-    public function index()//signup
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/index.php';
-        require APP . 'view/_templates/footer.php';
-    }
 
-    /**
-     * PAGE: exampleone
-     * This method handles what happens when you move to http://yourproject/home/exampleone
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
-     */
-    public function exampleOne()
+    public function index()
     {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_one.php';
-        require APP . 'view/_templates/footer.php';
-    }
+        $LoginModel = new NoneGag();
+        $error = [];
+        if (isset($_POST["nyskra"])) {
+            
+            if(!empty($_POST['username']) && !empty($_POST['password'])){       
+                /* Veit ekki alveg með þetta
+                if(session_status() == PHP_SESSION_NONE) session_start();
+                
+                $_SESSION['username'] = $_POST['username'];*/
+                
+                if ($LoginModel->authenticate($_POST['username'],$_POST['password'])) {
+                    header('location:'. URL.'admin/index' );
+                }
+                else {
+                        // þarf að útfæra betur
+                        $error = "Wront password or username";
+                }
 
-    /**
-     * PAGE: exampletwo
-     * This method handles what happens when you move to http://yourproject/home/exampletwo
-     * The camelCase writing is just for better readability. The method name is case-insensitive.
-     */
-    public function exampleTwo()
-    {
-        // load views
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/home/example_two.php';
-        require APP . 'view/_templates/footer.php';
+            } else {
+                    // þarf að útfæra betur
+                    array_push($error,"Require username and password");
+            }
+
+        }
+        if (isset($_POST["create"])) {
+            if (!empty($_POST["username"]) && !empty($_POST["password"]) && !empty($_POST["email"]) && !empty($_POST["confpass"])) {
+                if ($_POST["password"]==$_POST["confpass"]) {//did he do right?
+                    # code...
+                }
+                else{array_push($error,"pls conferm password")}
+            }
+        }
+
+            // load views
+            require APP . 'view/_templates/header.php';
+            print_r($error);
+            require APP . 'view/home/sign_up.php';
+            require APP . 'view/home/login.php';
+            require APP . 'view/_templates/footer.php';
+        
     }
 }

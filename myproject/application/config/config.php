@@ -56,7 +56,7 @@ define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
  */
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
-define('DB_NAME', 'v5');
-define('DB_USER', 'User');
-define('DB_PASS', 'mypassword');
+define('DB_NAME', '0405993209_NoneGag');
+define('DB_USER', '9gog');
+define('DB_PASS', 'ShitGotReal');
 define('DB_CHARSET', 'utf8');
