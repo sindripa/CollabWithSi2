@@ -18,6 +18,10 @@ class HomeController
 
     public function index()
     {
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        if (isset($_SESSION['authenticatedID'])) {
+            header('location:'. URL.'Nonegag/index' );
+        }
         $LoginModel = new Login();
         $error = [];
         if (isset($_POST["innskra"])) {
@@ -29,7 +33,7 @@ class HomeController
                 $_SESSION['username'] = $_POST['username'];*/
                 
                 if ($LoginModel->authenticate($_POST['username'],$_POST['password'])) {
-                    header('location:'. URL.'Home/youIn' );
+                    header('location:'. URL.'Nonegag/index' );
                 }
                 else {
                         // þarf að útfæra betur
@@ -59,11 +63,5 @@ class HomeController
             require APP . 'view/home/sign_up.php';
             require APP . 'view/home/login.php';
         
-    }
-
-    public function youIn()
-    {
-        if(session_status() == PHP_SESSION_NONE) session_start();
-        print_r($_SESSION);
     }
 }
