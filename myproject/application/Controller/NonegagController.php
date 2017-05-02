@@ -24,6 +24,12 @@ class NonegagController
             	echo "{error:'".$e."'}";
             }
         }
-        else{echo "{}";}
+        else{echo "{error: 'shit, no ID'}";}
+	}
+	public function vote($info)//input example: url/cont/fun/P_id|U_id|was|is      1|3|0|1
+	{
+		$NonegagModel = new Nonegag();
+		$inputs = explode('|', $info);
+		$NonegagModel->Voting($inputs[0],$inputs[1],$inputs[2], $inputs[3]);
 	}
 }
