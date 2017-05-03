@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>NoneGAG</title>
         <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo URL; ?>css/style.css">
 
     </head>
     <body>
