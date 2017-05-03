@@ -16,18 +16,16 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                             divid.appendChild(title);
                             let imageURL = document.createElement('img');
                             imageURL.src = object.P_url;
-                            imageURL.width = "640px";
-                            imageURL.height = "auto";
                             divid.appendChild(imageURL);
                             let votes = document.createElement('span');
                             votes.appendChild(document.createTextNode(object.P_upp + " points"));
                             divid.appendChild(votes);
                             let upvote = document.createElement('div');
-                            upvote.className = "upvote";
-                            divid.appendChild(upvotes);
+                            upvote.className = "upvotes";
+                            divid.appendChild(upvote);
                             let downvote = document.createElement('div');
-                            downvote.className = "downvote";
-                            divid.appendChild(downvotes);
+                            downvote.className = "downvotes";
+                            divid.appendChild(downvote);
                             let comments = document.createElement('div');
                             comments.className = "comments";
                             divid.appendChild(comments);
@@ -48,6 +46,7 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                         console.log("fetching posts");
                     });}
 $(document).ready(function() {
+    
 Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
