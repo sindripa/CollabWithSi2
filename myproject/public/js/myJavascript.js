@@ -1,4 +1,3 @@
-
 var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                     .done(function(result) {
                     	let lowestID =[];
@@ -42,11 +41,9 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                     })
                     .always(function() {
                         // this will ALWAYS be executed, regardless if the ajax-call was success or not
-
                         console.log("fetching posts");
                     });}
 $(document).ready(function() {
-    
 Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
@@ -54,4 +51,12 @@ Array.prototype.min = function() {
     let container = document.getElementById("container");
     loadingPosts();
 
+});
+var lastTime=0;
+document.addEventListener('scroll', function (event) {
+    if (document.body.scrollHeight*0.7 <=
+        document.body.scrollTop +        
+        window.innerHeight) {
+        if (Top>1&&Date.now()-lastTime>100) {loadingPosts(); lastTime=Date.now();};
+    }
 });
