@@ -9,7 +9,7 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                         {
                             let divid = document.createElement('div');
                             divid.id = object.P_id;
-                            divid.class = "postDIV";
+                            divid.className = "postDIV";
                             let title = document.createElement('h3');
                             title.appendChild(document.createTextNode(object.P_title));
                             divid.appendChild(title);
@@ -20,8 +20,14 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                             votes.appendChild(document.createTextNode(object.P_upp + " points"));
                             divid.appendChild(votes);
                             let upvote = document.createElement('div');
-                            upvote.class = "upvote";
+                            upvote.className = "upvotes";
                             divid.appendChild(upvote);
+                            let downvote = document.createElement('div');
+                            downvote.className = "downvotes";
+                            divid.appendChild(downvote);
+                            let comments = document.createElement('div');
+                            comments.className = "comments";
+                            divid.appendChild(comments);
                             return divid;
                         }
                         for (var i = 0; i < obj.length; i++) {
@@ -45,4 +51,12 @@ Array.prototype.min = function() {
     let container = document.getElementById("container");
     loadingPosts();
 
+});
+var lastTime=0;
+document.addEventListener('scroll', function (event) {
+    if (document.body.scrollHeight*0.7 <=
+        document.body.scrollTop +        
+        window.innerHeight) {
+        if (Top>1&&Date.now()-lastTime>100) {loadingPosts(); lastTime=Date.now();};
+    }
 });

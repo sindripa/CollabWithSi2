@@ -61,10 +61,9 @@ END; ☺
 
 */
 
-    /*public function Voting($postID, $userID, $was, $is)
+    public function Voting($postID, $userID, $was, $is)
     {
-        if ($was==$is) 
-        {
+        if ($was==$is) {
             echo "nonononono";
         }
         else if($was=="0")                      //select * from Post join Votes on Post.P_id=Votes.P_id 
@@ -72,11 +71,11 @@ END; ☺
             if ($is=="1") 
             {
                 $sql = "UPDATE Post SET P_upp=(SELECT P_upp+1 WHERE P_id=1) WHERE P_id=1;";
+
             }
-            else if ($is=="-1") 
-            {
-                $sql = "UPDATE Post SET P_upp=(SELECT P_upp-1 WHERE P_id=1) WHERE P_id=1;"
+            else if ($was=="0"&&$is=="-1") {//downvote
+                $sql = "UPDATE notandi SET nafn = :nafn WHERE id = :user_ID";
             }
         }
-    }*/
+    }
 }
