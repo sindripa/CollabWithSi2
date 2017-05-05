@@ -37,12 +37,29 @@ class Nonegag extends Model
 
     public function getPost($range)
     {
-        $sql = "select P_title, P_url, P_upp, P_id from Post where P_id < :range ORDER BY P_id DESC limit 8;";//byrjar á 0 í javascript fileinu
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        $sql = " call fetchPosts(:range,:id);";//byrjar á 0 í javascript fileinu
         $query = $this->db->prepare($sql);
-        $parameters = array(':range' => $range);
+        $parameters = array(':range' => $range, ':id' => $_SESSION['authenticatedID']);
         $query->execute($parameters);
         return $query->fetchAll();
     }
+    /*in progress replacement
+    DELIMITER ☺
+CREATE PROCEDURE fetchPosts (IN post_id INT, IN User_id INT)
+BEGIN 
+create TEMPORARY table TempVotes as select * from Votes where U_id=User_id;
+        select Post.P_title, Post.P_url, Post.P_upp, Post.P_id, Votes.V_value , Votes.U_id
+        from Post 
+        left join TempVotes on Post.P_id=TempVotes.P_id
+        where Post.P_id < post_id
+        ORDER BY Post.P_id DESC 
+        limit 8;
+END; ☺
+ DELIMITER ;
+
+
+*/
 
     /*public function Voting($postID, $userID, $was, $is)
     {
@@ -50,7 +67,7 @@ class Nonegag extends Model
         {
             echo "nonononono";
         }
-        else if($was=="0")
+        else if($was=="0")                      //select * from Post join Votes on Post.P_id=Votes.P_id 
         {//from nautral
             if ($is=="1") 
             {
