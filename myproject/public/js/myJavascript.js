@@ -19,14 +19,26 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                             let votes = document.createElement('span');
                             votes.appendChild(document.createTextNode(object.P_upp + " points"));
                             divid.appendChild(votes);
-                            let upvote = document.createElement('div');
-                            upvote.className = "upvotes";
+
+                            let upvote = document.createElement('button');
+                            upvote.className = "ui button up";
+                            if (object.V_value==1) {upvote.className += " checked";};
+                            let txt = document.createElement('strong');
+                            txt.appendChild(document.createTextNode("↑"));
+                            upvote.appendChild(txt);
                             divid.appendChild(upvote);
-                            let downvote = document.createElement('div');
-                            downvote.className = "downvotes";
+
+                            let downvote = document.createElement('button');
+                            downvote.className = "ui button down";
+                            if (object.V_value==-1) {upvote.className += " checked";};
+                            let txt2 = document.createElement('strong');
+                            txt2.appendChild(document.createTextNode("↓"));
+                            downvote.appendChild(txt2);
                             divid.appendChild(downvote);
-                            let comments = document.createElement('div');
-                            comments.className = "comments";
+
+                            let comments = document.createElement('button');
+                            comments.className = "ui button";
+                            comments.appendChild(document.createTextNode("comments"));
                             divid.appendChild(comments);
                             return divid;
                         }
@@ -43,6 +55,21 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                         // this will ALWAYS be executed, regardless if the ajax-call was success or not
                         console.log("fetching posts");
                     });}
+
+var voting = function(id, operation){$.ajax(myURL + "/Nonegag/vote/" + id +"Y"+operation)
+                    .done(function(result) {
+                                                
+                    })
+                    .fail(function() {
+                        console.log("shit");
+                    })
+                    .always(function() {
+                        console.log("voted");
+                        console.log(myURL + "/Nonegag/vote/" + id +"Y"+operation);
+                    });};
+
+
+
 $(document).ready(function() {
 Array.prototype.min = function() {
   return Math.min.apply(null, this);
@@ -60,3 +87,57 @@ document.addEventListener('scroll', function (event) {
         if (Top>1&&Date.now()-lastTime>100) {loadingPosts(); lastTime=Date.now();};
     }
 });
+Array.prototype.contains = function(something){
+    for(let i =0;i<this.length;i++)
+    {
+        if(this[i]==something)
+        {
+            return true;
+        }
+    }
+    return false;
+};
+function itemDone(e) {                           
+  e.preventDefault(); 
+  var target;
+ 
+  target = e.target;
+  if ( target.classList.contains("up")) 
+  {  
+    if (target.classList.contains("checked")) //delete vote
+    {
+        target.className = "ui button down";
+        voting(target.parentNode.id, "delete");
+    }
+    else if (target.parentNode.children[3].classList.contains("checked")) //update
+    {
+        target.className += " checked";
+        voting(target.parentNode.id, "updateGoo");//create
+    }
+    else{
+        target.className += " checked";
+        voting(target.parentNode.id, "createGoo");
+    }
+    console.log(target.classList);
+  }
+  else if ( target.classList.contains("down") ) 
+  {
+    if (target.classList.contains("checked")) //delete vote
+    {
+        target.className = "ui button down";
+        voting(target.parentNode.id, "delete");
+    }
+    else if (target.parentNode.children[4].classList.contains("checked")) //update
+    {
+        target.className += " checked";
+        voting(target.parentNode.id, "updateBad");//create
+    }
+    else{
+        target.className += " checked";
+        voting(target.parentNode.id, "createBad");
+    }
+  }
+}
+
+var el = document.getElementById('container'); 
+el.addEventListener('click', itemDone, false); 

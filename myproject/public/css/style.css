@@ -5,6 +5,9 @@ body {
     margin: 0px, auto;
     padding: 0px;
 }
+.ui.button{
+	font-weight: bold;
+}
 .logo {
     width: 200px;
     height: 200px;
