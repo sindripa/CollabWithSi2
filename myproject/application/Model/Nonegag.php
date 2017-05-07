@@ -44,22 +44,15 @@ class NoneGag extends Model
         $query->execute($parameters);
         return $query->fetchAll();
     }
-    /*in progress replacement
-    DELIMITER ☺
-CREATE PROCEDURE fetchPosts (IN post_id INT, IN User_id INT)
-BEGIN 
-create TEMPORARY table TempVotes as select * from Votes where U_id=User_id;
-        select Post.P_title, Post.P_url, Post.P_upp, Post.P_id, Votes.V_value , Votes.U_id
-        from Post 
-        left join TempVotes on Post.P_id=TempVotes.P_id
-        where Post.P_id < post_id
-        ORDER BY Post.P_id DESC 
-        limit 8;
-END; ☺
- DELIMITER ;
-
-
-*/
+    public function getOnePost($range)
+    {
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        $sql = "select ";//byrjar á 0 í javascript fileinu
+        $query = $this->db->prepare($sql);
+        $parameters = array(':range' => $range, ':id' => $_SESSION['authenticatedID']);
+        $query->execute($parameters);
+        return $query->fetchAll();
+    }
 
     public function Voting($postID, $operation)
     {
@@ -72,10 +65,17 @@ END; ☺
         }
         else if ($operation == "updateBad") {
             $sql = "update Votes set V_value = -1 where U_id = :User_id and P_id = :Post_id"; 
+<<<<<<< HEAD
         }
         else if ($operation == "createGoo") {
             $sql = "insert into Votes(V_value, U_id, P_id) values (1, :User_id, :Post_id)";
         }
+=======
+        }
+        else if ($operation == "createGoo") {
+            $sql = "insert into Votes(V_value, U_id, P_id) values (1, :User_id, :Post_id)";
+        }
+>>>>>>> 7689520f99a0106bb3b5c5ccb6133b0117bc9095
         else if ($operation == "createBad") {
             $sql = "insert into Votes(V_value, U_id, P_id) values (-1, :User_id, :Post_id)";
         }
