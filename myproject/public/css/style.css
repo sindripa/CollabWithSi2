@@ -2,6 +2,8 @@ body {
     font-family: Arial, sans-serif;
     font-size: 14px;
     color: #454545;
+    margin: 0px, auto;
+    padding: 0px;
 }
 .ui.button{
 	font-weight: bold;
@@ -14,8 +16,7 @@ body {
     margin: 20px 30px;
 }
 .navigation {
-	margin: none;
-    background-color: black;
+    margin-left: 33px;
 }
 .navigation a {
     display: inline-block;
@@ -37,7 +38,7 @@ body {
     border: 1px solid #454545;
     border-radius: 3px;
     padding: 20px;
-    margin: 33px;
+    margin: 0px, auto;
 }
 .container a {
     color: #454545;
@@ -91,10 +92,8 @@ body {
 .footer a {
     color: #454545;
 }
-.ui.button.checked{
-	background-color: #aaa;
-}
-.postDIV img{
-	width: 640px;
+
+.postDIV img {
+	width: 960px;
 	height: auto;
 }
