@@ -85,7 +85,7 @@ drop PROCEDURE fetchPosts;
 
 /*because I was unable to make a trigger go on more then one event I had to make three*/
 delimiter //
-CREATE TRIGGER Reeeee BEFORE INSERT ON Votes
+CREATE TRIGGER Reeeee AFTER INSERT ON Votes
 FOR EACH ROW
 BEGIN
     update Post           
@@ -94,7 +94,7 @@ BEGIN
 END;//
 delimiter ;
 delimiter //
-CREATE TRIGGER Reeee BEFORE DELETE SERT ON Votes
+CREATE TRIGGER Reeee AFTER DELETE SERT ON Votes
 FOR EACH ROW
 BEGIN
     update Post           
@@ -103,7 +103,7 @@ BEGIN
 END;//
 delimiter ;
 delimiter //
-CREATE TRIGGER Reee BEFORE UPDATE ON Votes
+CREATE TRIGGER Reee AFTER UPDATE ON Votes
 FOR EACH ROW
 BEGIN
     update Post           
