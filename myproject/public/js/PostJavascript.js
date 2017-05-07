@@ -127,6 +127,18 @@ function itemDone(e) {
     window.location="http://46.101.24.156/Nonegag/privatePost/"+target.parentNode.id;
   };
 }
-
+/*
 var el = document.getElementById('thePost'); 
 el.addEventListener('click', itemDone, false); 
+
+//SINDRI!!!
+var FUCKING_SINDRI = document.getElementById('WHAT_EVER_YOU_CALL_THAT_SHIT');//þetta er takkin eða eithvað
+FUCKING_SINDRI.addEventListener('click', FUCKING_FUNCTION, false); 
+function FUCKING_FUNCTION(e)
+{
+    if (eithvað er inní þessu textaboxi) 
+    {
+        kallar á ajax
+    };
+}
+*/

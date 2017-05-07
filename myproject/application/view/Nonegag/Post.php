@@ -25,4 +25,5 @@
 	}
 	?>
 </div>
+<!--SINDRI!!! hér á að vera input shit(sem þú getur gert hluti á)-->
 <div id="comments"></div>
