@@ -65,17 +65,10 @@ class NoneGag extends Model
         }
         else if ($operation == "updateBad") {
             $sql = "update Votes set V_value = -1 where U_id = :User_id and P_id = :Post_id"; 
-<<<<<<< HEAD
         }
         else if ($operation == "createGoo") {
             $sql = "insert into Votes(V_value, U_id, P_id) values (1, :User_id, :Post_id)";
         }
-=======
-        }
-        else if ($operation == "createGoo") {
-            $sql = "insert into Votes(V_value, U_id, P_id) values (1, :User_id, :Post_id)";
-        }
->>>>>>> 7689520f99a0106bb3b5c5ccb6133b0117bc9095
         else if ($operation == "createBad") {
             $sql = "insert into Votes(V_value, U_id, P_id) values (-1, :User_id, :Post_id)";
         }

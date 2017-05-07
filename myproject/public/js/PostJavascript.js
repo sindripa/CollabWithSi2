@@ -1,8 +1,6 @@
-var doneLoading = false;
-var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
+var loadingComments = function(){$.ajax(myURL + "/Post/fetchComments/" + PostId)
                     .done(function(result) {
                     	let lowestID =[];
-                    	console.log(Top);
                         // this will be executed if the ajax-call was successful
                         // here we get the feedback from the ajax-call (result) and show it in #javascript-ajax-result-box
                         obj = jQuery.parseJSON(result);
@@ -11,49 +9,33 @@ var loadingPosts = function(){$.ajax(myURL + "/Nonegag/fetchPosts/" + Top)
                             console.log(object);
                             let divid = document.createElement('div');
                             divid.id = object.P_id;
-                            divid.className = "postDIV";
-                            let title = document.createElement('h3');
-                            title.appendChild(document.createTextNode(object.P_title));
-                            divid.appendChild(title);
-                            let imageURL = document.createElement('img');
+                            divid.className = "postComment";
+                            let Commentor = document.createElement('h3');
+                            Commentor.appendChild(document.createTextNode(object.U_name));
+                            divid.appendChild(Commentor);
+                            /*let imageURL = document.createElement('img');     //ekki notað nema profile pic verður bætt við
                             imageURL.src = object.P_url;
-                            divid.appendChild(imageURL);
-                            let votes = document.createElement('span');
-                            if (object.P_upp==null) {object.P_upp=0};
-                            votes.appendChild(document.createTextNode(object.P_upp + " points"));
-                            divid.appendChild(votes);
+                            divid.appendChild(imageURL);*/
+                            let text = document.createElement('span');
+                            text.appendChild(document.createTextNode(object.C_txt));
+                            divid.appendChild(text);
 
-                            let upvote = document.createElement('button');
-                            upvote.className = "ui button up";
-                            if (object.V_value==1) {upvote.className += " checked";};
-                            upvote.appendChild(document.createTextNode("↑"));
-                            divid.appendChild(upvote);
+                            //replay thing með ajax
 
-                            let downvote = document.createElement('button');
-                            downvote.className = "ui button down";
-                            if (object.V_value=="-1") {downvote.className += " checked";};
-                            downvote.appendChild(document.createTextNode("↓"));
-                            divid.appendChild(downvote);
-
-                            let comments = document.createElement('button');
-                            comments.className = "ui button comments";
-                            comments.appendChild(document.createTextNode("comments"));
-                            divid.appendChild(comments);
                             return divid;
                         }
+                        let container = document.getElementById("comments");
                         for (var i = 0; i < obj.length; i++) {
                             container.appendChild(poster(obj[i]));
                             lowestID.push(obj[i].P_id);
                         }
                         Top=lowestID.min();
-                        doneLoading=true;
                     })
                     .fail(function() {
-                        // this will be executed if the ajax-call had failed
+                        
                     })
                     .always(function() {
-                        // this will ALWAYS be executed, regardless if the ajax-call was success or not
-                        console.log("fetching posts");
+                        
                     });};
 
 var voting = function(id, operation){$.ajax(myURL + "/Nonegag/vote/" + id +"Y"+operation)
@@ -75,14 +57,9 @@ Array.prototype.min = function() {
   return Math.min.apply(null, this);
 };
     let obj;
-    let container = document.getElementById("container");
-    loadingPosts();
+    let container = document.getElementById("comments");
+    loadingComments();
 
-});
-document.addEventListener('scroll', function (event) {
-    if (document.body.scrollHeight*0.7 <= document.body.scrollTop + window.innerHeight) {
-        if (doneLoading) {doneLoading=false;loadingPosts();console.log("listener í gágn");};
-    }
 });
 Array.prototype.contains = function(something){
     for(let i =0;i<this.length;i++)
@@ -147,9 +124,9 @@ function itemDone(e) {
   }
   else if (target.classList.contains("comments")) //comments
   {
-    window.location="http://46.101.24.156/Post/privatePost/"+target.parentNode.id;
+    window.location="http://46.101.24.156/Nonegag/privatePost/"+target.parentNode.id;
   };
 }
 
-var el = document.getElementById('container'); 
+var el = document.getElementById('thePost'); 
 el.addEventListener('click', itemDone, false); 
