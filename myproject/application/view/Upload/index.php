@@ -7,7 +7,7 @@
         <title>Upload</title>
     </head>
     <body>
-
+    
         <form action="http://46.101.24.156/Upload/insert" method="post">
 
         <label>Post title: </label>
