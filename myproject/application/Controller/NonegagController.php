@@ -34,4 +34,7 @@ class NonegagController
 		$NonegagModel->Voting($inputs[0],$inputs[1]);
 	}
 	public function test(){$NonegagModel = new Nonegag();$newest = $NonegagModel->TopId()->fuck; echo $newest;}
-}
+}	public function privatePost($postID)
+	{
+		
+	}
