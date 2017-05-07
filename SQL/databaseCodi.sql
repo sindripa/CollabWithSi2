@@ -81,6 +81,18 @@ END; ☺
  DELIMITER ;
  call fetchPosts(8,1);
 drop PROCEDURE fetchPosts;
+/*get only one post*/
+DELIMITER ☺
+CREATE PROCEDURE fetchPost (IN post_id INT, IN User_id INT)
+BEGIN 
+create TEMPORARY table TempVotes as select Votes.V_value, Votes.U_id, Votes.P_id from Votes where Votes.U_id=User_id;
+        select Post.P_title, Post.P_url, Post.P_upp, Post.P_id, TempVotes.V_value , TempVotes.U_id
+        from Post 
+        left join TempVotes on Post.P_id=TempVotes.P_id
+        where Post.P_id = post_id
+        ORDER BY Post.P_id DESC;
+END; ☺
+ DELIMITER ;
 
 
 /*because I was unable to make a trigger go on more then one event I had to make three*/
