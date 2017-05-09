@@ -142,7 +142,7 @@ function mammadin()
     console.log(text);
     $.ajax(myURL + "/Post/commentUpload/" + PostId +"Y"+text)
                     .done(function(result) {
-
+                        location.reload();
                     })
                     .fail(function() {
                         console.log("shit");
