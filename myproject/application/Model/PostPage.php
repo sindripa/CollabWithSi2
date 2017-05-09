@@ -26,11 +26,9 @@ class PostPage extends Model
     }
     public function CommentUpload($postID, $text)
     {
-        for ($i = 0; $i < strlen($text); $i++) {
-            if ($text[$i] == 'Ü') {//alt+6+6+6
-                $text[$i] = ' ';
-            }
-        }
+        echo $text;
+        $text = str_replace("ZSAPAECE", ' ', $text);
+        echo $text;
         if(session_status() == PHP_SESSION_NONE) session_start();
         $sql = 'INSERT INTO Commint(C_txt, U_id, P_id)VALUES(:comment,:userID,:postID)';
         $query = $this->db->prepare($sql);
