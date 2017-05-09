@@ -137,12 +137,9 @@ stufferino.addEventListener('click', mammadin, false);
 
 function mammadin()
 {   
-    let text = document.getElementById('comment').value;
-    for (var i = 0; i < text.length; i++) {
-        if (text[i] == ' ') {
-            text[i] = 'Ü';//alt+6+6+6
-        }
-    }
+    let textstuff = document.getElementById('comment').value;
+    text = textstuff.replace(" ", "ZSAPAECE");//alt+1+2+8
+    console.log(text);
     $.ajax(myURL + "/Post/commentUpload/" + PostId +"Y"+text)
                     .done(function(result) {
 
