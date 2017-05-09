@@ -7,7 +7,7 @@ use Mini\Core\Model;
 
 class Login extends Model
 {
-    public function addUser()
+    public function addUser($nafn,$pass,$email)
     {
         $hashedPass = password_hash($pass, PASSWORD_DEFAULT);
         $sql = 'INSERT INTO Usor(U_name, U_password, U_email)  VALUES (:nafn, :pass, :email )';

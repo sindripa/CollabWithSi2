@@ -64,4 +64,11 @@ class HomeController
             require APP . 'view/home/login.php';
         
     }
+
+    public function logout()
+    {
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        session_destroy();
+        header('location:'. URL.'Home/index' );
+    }
 }

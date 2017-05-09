@@ -27,4 +27,10 @@ class PostController
         }
         else{echo "{error: 'shit, no ID'}";}
 	}
+	public function commentUpload($info)
+	{
+		$NonegagModel = new PostPage();
+		$inputs = explode('Y', $info);
+		$NonegagModel->commentUpload($inputs[0],$inputs[1]);
+	}
 }

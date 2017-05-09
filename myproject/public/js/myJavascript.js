@@ -147,7 +147,7 @@ function itemDone(e) {
   }
   else if (target.classList.contains("comments")) //comments
   {
-    window.location="http://46.101.24.156/Nonegag/privatePost/"+target.parentNode.id;
+    window.location="http://46.101.24.156/Post/privatePost/"+target.parentNode.id;
   };
 }
 

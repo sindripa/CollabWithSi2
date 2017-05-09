@@ -129,22 +129,29 @@ function itemDone(e) {
 }
 
 var el = document.getElementById('thePost'); 
-el.addEventListener('click', itemDone, false); 
+el.addEventListener('click', itemDone, false);
 
-var comment_form = document.getElementById('commentForm');//þetta er takkin eða eithvað
-$("#commentForm").submit(function(event) {
+var stufferino = document.getElementById('stufferino');
+var texterino = document.getElementById('commentForm');
+stufferino.addEventListener('click', mammadin, false);
 
-/* stop form from submitting normally */
-event.preventDefault();
+function mammadin()
+{   
+    let text = document.getElementById('comment').value;
+    for (var i = 0; i < text.length; i++) {
+        if (text[i] == ' ') {
+            text[i] = 'Ü';//alt+6+6+6
+        }
+    }
+    $.ajax(myURL + "/Post/commentUpload/" + PostId +"Y"+text)
+                    .done(function(result) {
 
-/* get the action attribute from the <form action=""> element */
-var $form = $( this ),
-    url = $form.attr( 'action' );
-
-var posting = $.post( url, { comment: $('#comment').val(), postID: PostId } );
-
-/* Alerts the results */
-posting.done(function( data ) {
-    
-    });
-});
+                    })
+                    .fail(function() {
+                        console.log("shit");
+                    })
+                    .always(function() {
+                        console.log("voted");
+                        console.log(myURL + "/Post/commentUpload/" + PostId +"Y"+text);
+                    });
+}

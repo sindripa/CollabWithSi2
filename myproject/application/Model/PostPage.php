@@ -24,4 +24,18 @@ class PostPage extends Model
         $query->execute($parameters);
         return $query->fetchAll();
     }
+    public function CommentUpload($postID, $text)
+    {
+        for ($i = 0; $i < strlen($text); $i++) {
+            if ($text[$i] == 'Ü') {//alt+6+6+6
+                $text[$i] = ' ';
+            }
+        }
+        if(session_status() == PHP_SESSION_NONE) session_start();
+        $sql = 'INSERT INTO Commint(C_txt, U_id, P_id)VALUES(:comment,:userID,:postID)';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':comment' => $text, ':postID' => $postID, ':userID' => $_SESSION['authenticatedID']);
+        $query->execute($parameters);
+    }
+
 }

@@ -25,8 +25,9 @@
 	}
 	?>
 </div>
-<form action="comment.php" method="post" id="commentForm">
-	<textarea rows="5" cols="60" id="comment" name="comment" required placeholder="Type stuff here..."></textarea>
+<div id="commentForm">
+	<input type="text" id="comment" name="comment" required placeholder="Type stuff here..."></input>
+	<input id="hiddenInput" type="hidden" name="postID" <?php echo("value='$Post->P_id'"); ?> >
 	<input type="submit" id="stufferino">
-</form>
+</div>
 <div id="comments"></div>

@@ -110,3 +110,13 @@ body {
 	width: 640px;
 	height: auto;
 }
+.navigation{
+	width: 100%;
+	height: 74;
+}
+
+.nonegagIcon{
+	height: 40px;
+	padding: 0px;
+	margin: 0px;
+}
